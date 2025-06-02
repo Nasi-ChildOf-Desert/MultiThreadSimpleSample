@@ -120,7 +120,7 @@ namespace ThreadTrain
                 lock (basketHisLock)// imagine they are difrent object of difrernt class do i need exact locker of class a for a bascket?
                 {
                     temp = new List<int>(basketHis); // how to check each row is for lastSecond? timer?                
-                    basketHis.Clear();
+                  //  basketHis.Clear();
                 }
 
                 for (int i = 0; i < temp.Count; i++)// do i need create new for basketHis ? how to define it?
