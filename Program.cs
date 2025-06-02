@@ -10,7 +10,7 @@ namespace ThreadTrain
     class Program
     {
         static List<int> basket;
-        static List<List<int>> basketHis;
+        static List<int> basketHis;
         static readonly object basketLock = new object();
         static readonly object basketHisLock = new object();
         static bool runProducer = true;
@@ -19,12 +19,9 @@ namespace ThreadTrain
         static void Main(string[] args)
         {
             basket = new List<int>();
-            basketHis = new List<List<int>>();
+            basketHis = new List<int>();
             // Initialize basketHis with 10 inside lists
-            for (int k = 0; k < 10; k++)
-            {
-                basketHis.Add(new List<int>());
-            }
+           
             Thread NumGenThread = new Thread(RandomGenerator);
             Thread HisThread = new Thread(HistoMaker);
             Thread DisThread = new Thread(DisplayHisto);
@@ -76,31 +73,31 @@ namespace ThreadTrain
                     {
                         for (int k = 0; k < 10; k++)
                         {
-                            basketHis.Add(new List<int>());
+                            basketHis.Add(0);
                         }
                     }
                     for (int i = 0; i < temp.Count; i++)// do i need create new for basketHis ? how to define it?
                     {
                         if (temp[i] < 10)
-                            basketHis[0].Add(temp[i]);
+                            basketHis[0]++;
                         else if (temp[i] < 20)
-                            basketHis[1].Add(temp[i]);
+                            basketHis[1]++;
                         else if (temp[i] < 30)
-                            basketHis[2].Add(temp[i]);
+                            basketHis[2]++;
                         else if (temp[i] < 40)
-                            basketHis[3].Add(temp[i]);
+                            basketHis[3]++;
                         else if (temp[i] < 50)
-                            basketHis[4].Add(temp[i]);
+                            basketHis[4]++;
                         else if (temp[i] < 60)
-                            basketHis[5].Add(temp[i]);
+                            basketHis[5]++;
                         else if (temp[i] < 70)
-                            basketHis[6].Add(temp[i]);
+                            basketHis[6]++;
                         else if (temp[i] < 80)
-                            basketHis[7].Add(temp[i]);
+                            basketHis[7]++;
                         else if (temp[i] < 90)
-                            basketHis[8].Add(temp[i]);
+                            basketHis[8]++;
                         else
-                            basketHis[9].Add(temp[i]);
+                            basketHis[9]++;
 
                     }
                 }
@@ -122,13 +119,13 @@ namespace ThreadTrain
                 }
                 lock (basketHisLock)// imagine they are difrent object of difrernt class do i need exact locker of class a for a bascket?
                 {
-                    temp = new List<int>(basketHis.Last()); // how to check each row is for lastSecond? timer?                
+                    temp = new List<int>(basketHis); // how to check each row is for lastSecond? timer?                
                     basketHis.Clear();
                 }
 
                 for (int i = 0; i < temp.Count; i++)// do i need create new for basketHis ? how to define it?
                 {
-                    Console.WriteLine("the hist is {0} ", temp[i]);
+                    Console.WriteLine("the hist of bin {0}   is  {1}",i, temp[i]);
                 }
             }
         }
